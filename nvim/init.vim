@@ -12,10 +12,13 @@ set cindent
 syntax enable
 set backspace=indent,eol,start
 set guifont=FiraCode
-map <C-p> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
+map <C-p> :call CompileRun()<CR>
+func! CompileRun()
 	exec "w"
-	if &filetype == 'cpp'
+	if &filetype == 'python'
+		:sp
+		:term python %<.py
+	elseif &filetype == 'cpp'
 		exec "!g++ -std=c++17 % -Wall -o %<"
 		:sp
 		:term time ./%<
